@@ -37,6 +37,7 @@ const Main = ({ children, className, id }: MainProps) => {
   return (
     <main
       className={cn(
+        // "bg-[#201E21]",
         // `Main` Specific Styles
         "max-w-none prose-p:m-0",
         // General Prose
@@ -67,11 +68,21 @@ type SectionProps = {
   children: React.ReactNode;
   className?: string;
   id?: string;
+  // Placeholder: string;
 };
 
 const Section = ({ children, className, id }: SectionProps) => {
   return (
-    <section className={cn("py-8 md:py-12", className)} id={id}>
+    <section
+      className={cn("mt-10 mb-20", className)}
+      id={id}
+    // style={{
+    //   backgroundImage: `url(${Placeholder})`,
+    //   backgroundSize: 'cover', // или 'contain', в зависимости от ваших нужд
+    //   backgroundRepeat: 'no-repeat',
+    //   height: '100vh', // Установите высоту по вашему усмотрению
+    // }}
+    >
       {children}
     </section>
   );
@@ -82,11 +93,22 @@ type ContainerProps = {
   children: React.ReactNode;
   className?: string;
   id?: string;
+  placeholder?: string;
 };
 
-const Container = ({ children, className, id }: ContainerProps) => {
+const Container = ({ children, className, id, placeholder }: ContainerProps) => {
   return (
-    <div className={cn("mx-auto max-w-5xl", "p-6 sm:p-8", className)} id={id}>
+    <div
+      className={cn("mx-auto max-w-5xl", "", className)}
+      id={id}
+      style={{
+        backgroundImage: `url(${placeholder})`,
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        height: '100%', // Установите высоту по вашему усмотрению
+      }}
+    >
+      {/* p-6 sm:p-8 */}
       {children}
     </div>
   );
