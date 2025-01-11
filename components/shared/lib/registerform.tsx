@@ -4,8 +4,8 @@ import { useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 
 export default function Register() {
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
+    const [username, setName] = useState("");
+    const [password, setPassword] = useState("");
 
     const handleRegister = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -15,7 +15,7 @@ export default function Register() {
         const res = await fetch("/api/register", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name, email }),
+            body: JSON.stringify({ username, password }),
         });
 
         toast.dismiss();
@@ -23,9 +23,9 @@ export default function Register() {
         const data = await res.json();
 
         if (res.ok) {
-            toast.success(`Registration successful! Welcome, ${data.user.name}.`);
+            toast.success(`Registration successful! Welcome, ${data.users.username}.`);
             setName("");
-            setEmail("");
+            setPassword("");
         } else {
             toast.error(data.error || "An error occurred during registration.");
         }
@@ -47,15 +47,15 @@ export default function Register() {
                 <input
                     type="text"
                     placeholder="Enter your name"
-                    value={name}
+                    value={username}
                     onChange={(e) => setName(e.target.value)}
                     required
                 />
                 <input
-                    type="email"
-                    placeholder="Enter your email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    type="password"
+                    placeholder="Enter your password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     required
                 />
                 <button type="submit" style={{ padding: "10px", cursor: "pointer" }}>

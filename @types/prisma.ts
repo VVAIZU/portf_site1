@@ -1,3 +1,3 @@
-import {Product } from "@prisma/client";
+import { projects } from "@prisma/client";
 
-export type SiteProduct = Product;
+export type SiteProduct = projects;

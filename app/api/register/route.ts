@@ -3,27 +3,30 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
     try {
-        const { name, email } = await req.json();
+        const { username, password } = await req.json();
 
-        if (!name || !email) {
-            return NextResponse.json({ error: "Name and email are required." }, { status: 400 });
+        if (!username || !password) {
+            return NextResponse.json({ error: "Name and password are required." }, { status: 400 });
         }
 
         // Проверяем, существует ли пользователь с такой почтой
-        const existingUser = await prisma.user.findUnique({
-            where: { email },
+        const existingUser = await prisma.users.findUnique({
+            where: { password },
         });
 
         if (existingUser) {
             return NextResponse.json(
-                { error: "User with this email already exists." },
+                { error: "User with this password already exists." },
                 { status: 400 }
             );
         }
 
         // Создаем нового пользователя
-        const newUser = await prisma.user.create({
-            data: { name, email },
+        const newUser = await prisma.users.create({
+            data: { 
+                username, 
+                password,
+            },
         });
 
         return NextResponse.json({ user: newUser }, { status: 201 });

@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 
 export default async function ProductPage({ params: { id } }: { params: { id: string } }) {
 
-    const product = await prisma.product.findFirst({
+    const product = await prisma.projects.findFirst({
         where: { id: Number(id) }
     });
 

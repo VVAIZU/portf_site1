@@ -7,7 +7,7 @@ import { Section } from "./craft";
 import DynamicSlider from "./slider";
 
 export default async function GameShop() {
-    const products = await prisma.product.findMany();
+    const products = await prisma.projects.findMany();
 
     return (
         <Section className="mt-40">

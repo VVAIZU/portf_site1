@@ -7,22 +7,22 @@ const SECRET_KEY = process.env.JWT_SECRET || crypto.randomBytes(64).toString("he
 
 export async function POST(req: NextRequest) {
     try {
-        const { name, email } = await req.json();
+        const { username, password } = await req.json();
 
-        if (!name || !email) {
-            return NextResponse.json({ error: "Name and email are required." }, { status: 400 });
+        if (!username || !password) {
+            return NextResponse.json({ error: "Name and password are required." }, { status: 400 });
         }
 
         // Проверяем, существует ли пользователь с таким именем и почтой
-        const user = await prisma.user.findFirst({
-            where: { name, email },
+        const user = await prisma.users.findFirst({
+            where: { username, password },
         });
 
         if (!user) {
             return NextResponse.json({ error: "User not found. Please register." }, { status: 404 });
         }
         // Создаем токен
-        const token = jwt.sign({ id: user.id, name: user.name, email: user.email }, SECRET_KEY, {
+        const token = jwt.sign({ id: user.id, name: user.username, password: user.password }, SECRET_KEY, {
             expiresIn: "7d",
         });
 

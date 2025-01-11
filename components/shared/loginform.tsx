@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 import { Toaster, toast } from "react-hot-toast";
 
 export default function Login() {
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
+    const [username, setName] = useState("");
+    const [password, setPassword] = useState("");
     const router = useRouter();
 
     const handleLogin = async (e: React.FormEvent) => {
@@ -17,7 +17,7 @@ export default function Login() {
         const res = await fetch("/api/auth", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name, email }),
+            body: JSON.stringify({ username, password }),
         });
 
         toast.dismiss();
@@ -53,15 +53,15 @@ export default function Login() {
                 <input
                     type="text"
                     placeholder="Enter your name"
-                    value={name}
+                    value={username}
                     onChange={(e) => setName(e.target.value)}
                     required
                 />
                 <input
-                    type="email"
-                    placeholder="Enter your email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    type="password"
+                    placeholder="Enter your password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     required
                 />
                 <button type="submit" style={{ padding: "10px", cursor: "pointer" }}>
